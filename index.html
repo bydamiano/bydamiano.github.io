@@ -29,9 +29,9 @@
   }
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
+html,body{margin:0;height:100%;overflow:hidden}
 body{
-  min-height:100vh;min-height:100dvh;
+  height:100vh;height:100dvh;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
   padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
   background:
@@ -50,15 +50,14 @@ body::after{
 @keyframes scan{to{transform:translateY(124vh)}}
 
 .card{
-  display:block;width:min(100%,1600px);border-radius:clamp(10px,1.6vw,20px);
+  /* Fit both axes: never wider than the viewport, never taller than it (card ratio 1180:610; 80px = padding + footer + gap). */
+  display:block;width:min(100%,1600px,calc((100vh - 80px) * 1180 / 610));width:min(100%,1600px,calc((100dvh - 80px) * 1180 / 610));
+  flex:none;border-radius:clamp(10px,1.6vw,20px);
   /* gradient frame like borderGrad */
   padding:2px;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));
   box-shadow:0 0 60px var(--glow),0 30px 80px rgba(0,0,0,.35);
-  transition:transform .3s ease,box-shadow .3s ease;
 }
-.card:hover{transform:translateY(-3px);box-shadow:0 0 90px var(--glow),0 36px 90px rgba(0,0,0,.4)}
-.card:focus-visible{outline:3px solid var(--link);outline-offset:6px}
-.card img{display:block;width:100%;height:auto;border-radius:inherit}
+.card img{display:block;width:100%;height:auto;border-radius:inherit;pointer-events:none;user-select:none;-webkit-user-drag:none}
 
 footer{font-size:.8rem;color:var(--muted);text-align:center;letter-spacing:.04em}
 footer a{color:var(--link);text-decoration:none}
@@ -66,18 +65,17 @@ footer a:hover{text-decoration:underline}
 
 @media (prefers-reduced-motion: reduce){
   body::after{animation:none;display:none}
-  .card{transition:none}
 }
 </style>
 </head>
 <body>
-  <a class="card" href="https://github.com/bydamiano" aria-label="ByDamiano on GitHub">
+  <div class="card">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="profile_dark.svg">
       <img src="profile_light.svg" width="1180" height="610"
            alt="ByDamiano, Frontend &amp; AI Developer from Rome, Italy. Focus: micro-frontends and local AI. Angular, TypeScript, RxJS, Nx, Claude Code, Ollama, Docker, AWS.">
     </picture>
-  </a>
+  </div>
   <footer>
     <a href="https://github.com/bydamiano">github.com/bydamiano</a> · <a href="mailto:contact@bydamiano.me">contact@bydamiano.me</a>
   </footer>
