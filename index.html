@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ByDamiano · Frontend &amp; AI Developer</title>
+<meta name="description" content="ByDamiano: Frontend &amp; AI Developer from Rome. Angular by day, local LLMs by night.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#030712" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F1F5F9" media="(prefers-color-scheme: light)">
+<style>
+/* Colors taken from profile_dark.svg / profile_light.svg so the page and the card read as one surface. */
+:root{
+  --bg-in:#0B1120; --bg-out:#030712;
+  --line:rgba(125,211,252,.04);
+  --scan:rgba(165,243,252,.10);
+  --g1:#7C3AED; --g2:#22D3EE; --g3:#10B981;
+  --muted:#64748B; --link:#22D3EE;
+  --glow:rgba(34,211,238,.18);
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg-in:#FFFFFF; --bg-out:#F1F5F9;
+    --line:rgba(2,132,199,.035);
+    --scan:rgba(56,189,248,.08);
+    --g1:#2563EB; --g2:#06B6D4; --g3:#10B981;
+    --muted:#64748B; --link:#0284C7;
+    --glow:rgba(37,99,235,.14);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  background:
+    repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 4px),
+    radial-gradient(ellipse 80% 80% at 30% 20%,var(--bg-in),var(--bg-out)) fixed;
+  background-color:var(--bg-out);
+  font-family:Consolas,"Courier New",ui-monospace,monospace;
+  overflow-x:hidden;
+}
+/* Moving scanline, same as the one inside the card, across the whole page. */
+body::after{
+  content:"";position:fixed;left:0;right:0;top:-12vh;height:12vh;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,var(--scan) 50%,transparent);
+  animation:scan 6s linear infinite;
+}
+@keyframes scan{to{transform:translateY(124vh)}}
+
+.card{
+  display:block;width:min(100%,1600px);border-radius:clamp(10px,1.6vw,20px);
+  /* gradient frame like borderGrad */
+  padding:2px;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));
+  box-shadow:0 0 60px var(--glow),0 30px 80px rgba(0,0,0,.35);
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 0 90px var(--glow),0 36px 90px rgba(0,0,0,.4)}
+.card:focus-visible{outline:3px solid var(--link);outline-offset:6px}
+.card img{display:block;width:100%;height:auto;border-radius:inherit}
+
+footer{font-size:.8rem;color:var(--muted);text-align:center;letter-spacing:.04em}
+footer a{color:var(--link);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media (prefers-reduced-motion: reduce){
+  body::after{animation:none;display:none}
+  .card{transition:none}
+}
+</style>
+</head>
+<body>
+  <a class="card" href="https://github.com/bydamiano" aria-label="ByDamiano on GitHub">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="profile_dark.svg">
+      <img src="profile_light.svg" width="1180" height="610"
+           alt="ByDamiano, Frontend &amp; AI Developer from Rome, Italy. Focus: micro-frontends and local AI. Angular, TypeScript, RxJS, Nx, Claude Code, Ollama, Docker, AWS.">
+    </picture>
+  </a>
+  <footer>
+    <a href="https://github.com/bydamiano">github.com/bydamiano</a> · <a href="mailto:contact@bydamiano.me">contact@bydamiano.me</a>
+  </footer>
+</body>
+</html>
